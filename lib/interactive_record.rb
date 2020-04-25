@@ -36,4 +36,10 @@ class InteractiveRecord
     self.class.column_names.each {|col_name| values << "'#{send(col_name)}'" unless send(col_name).nil?}
     values.join(", ")
   end
+
+  def save
+    sql = "INSERT INTO #{{table_name_for_insert}} (#{col_names_for_insert}) VALUES (#{values_for_insert});"
+    DB[:conn].execute(sql)
+    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM #{table_name_for_insert}")[0][0]
+  end
 end
