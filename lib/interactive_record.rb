@@ -7,6 +7,16 @@ class InteractiveRecord
   end
 
   def self.column_names
+    DB[:conn].new_hash = true
 
+    sql = "PRAGMA t_info('#{table_name}')"
+
+    t_info = DB[:conn].execute(sql)
+    col_name = []
+
+    t_info.each do |col|
+      col_name << col["name"]
+    end
+    col_name.compact
   end
 end
