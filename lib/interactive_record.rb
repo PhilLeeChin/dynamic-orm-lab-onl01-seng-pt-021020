@@ -22,6 +22,10 @@ class InteractiveRecord
     choice.each {|property, value| self.send("#{property}=", value)}
   end
 
+  def table_name_for_insert
+    self.class.table_name
+  end
+
   def col_names_for_insert
     self.class.column_names.delete_if {|col| col == "id"}.join(", ")
   end
