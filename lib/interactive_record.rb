@@ -12,11 +12,11 @@ class InteractiveRecord
     sql = "PRAGMA t_info('#{table_name}')"
 
     t_info = DB[:conn].execute(sql)
-    col_name = []
+    column_names = []
 
     t_info.each do |col|
-      col_name << col["name"]
+      column_names << col["name"]
     end
-    col_name.compact
+    column_names.compact
   end
 end
