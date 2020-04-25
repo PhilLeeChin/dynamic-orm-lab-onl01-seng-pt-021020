@@ -9,10 +9,10 @@ class InteractiveRecord
   def self.column_names
     DB[:conn].results_as_hash = true
 
-    table_info = DB[:conn].execute("PRAGMA t_info('#{table_name}')")
+    table = DB[:conn].execute("PRAGMA table_info('#{table_name}')")
     column_names = []
 
-    table_info.each do |col|
+    table.each do |col|
       column_names << col["name"]
     end
     column_names.compact
